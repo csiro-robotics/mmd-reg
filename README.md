@@ -2,6 +2,37 @@
 
 ## Download and Process Datasets
 
+### PCPNet
+
+Download the data, unzip it, and clean up:
+
+```bash
+mkdir -p datasets/pcpnet
+curl -o datasets/pcpnet.zip https://geometry.cs.ucl.ac.uk/projects/2018/pcpnet/pclouds.zip
+unzip datasets/pcpnet.zip -d datasets/pcpnet/
+rm datasets/pcpnet.zip
+```
+
+Then prepare the data:
+
+```bash
+bash scripts/prepare_pcpnet.sh
+```
+
+There should now be a `datasets` directory like:
+
+```text
+datasets/
+├── pcpnet/
+│   ├── armadillo100k.curv
+│   └── ...
+├── processed/
+│   ├── pcpnet_gradient.hdf5
+│   ├── pcpnet_high_noise.hdf5
+│   └── ...
+└── ...
+```
+
 ### ModelNet40
 
 Download the data, unzip it, and clean up:
