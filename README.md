@@ -108,6 +108,59 @@ and choose `Download files via S3 Client` to obtain the AWS CLI command.
 bash prepare_wild_places.sh
 ```
 
+## Download and Process KITTI Odometry Dataset
+
+After completing these steps, there should be a `Datasets` directory like:
+
+```text
+Datasets/
+├── KITTI/
+│   ├── odometry/
+│   │   ├── dataset/
+│   │   │   ├── poses/
+│   │   │   │   ├── 00.txt
+│   │   │   │   ├── 01.txt
+│   │   │   │   └── ...
+│   │   │   ├── sequences/
+│   │   │   │   ├── 00/
+│   │   │   │   │   ├── velodyne/
+│   │   │   │   │   │   ├── 000000.bin
+│   │   │   │   │   │   ├── 000001.bin
+│   │   │   │   │   │   └── ...
+│   │   │   │   │   ├── calib.txt
+│   │   │   │   │   └── times.txt
+│   │   │   │   ├── 01/
+│   │   │   │   └── ...
+├── Processed/
+│   ├── kitti_odometry_07.hdf5
+│   ├── kitti_odometry_08.hdf5
+│   └── ...
+└── ...
+```
+
+### Step 1: Create the base directory for KITTI Odometry
+
+```bash
+mkdir -p Datasets/KITTI/odometry
+```
+
+### Step 2: Download data and unzip it
+
+From <https://www.cvlibs.net/datasets/kitti/eval_odometry.php>,
+download `data_odometry_calib.zip`, `data_odometry_poses.zip`, and
+`data_odometry_velodyne.zip`, and place them into `Datasets/KITTI/odometry/`.
+
+```bash
+unzip Datasets/KITTI/odometry/data_odometry_calib.zip -d Datasets/KITTI/odometry/
+unzip Datasets/KITTI/odometry/data_odometry_poses.zip -d Datasets/KITTI/odometry/
+unzip Datasets/KITTI/odometry/data_odometry_velodyne.zip -d Datasets/KITTI/odometry/
+```
+
+### Step 3: Prepare data with CPU-only Python virtual environment active
+```bash
+bash prepare_kitti_odometry.sh
+```
+
 ## Download and Process ModelNet40 Dataset
 
 After completing these steps, there should be a `Datasets` directory like:
@@ -148,8 +201,9 @@ bash prepare_modelnet40.sh
 
 ## Run Benchmarks
 
-After downloading and processing the PCPNet Dataset and Wild Places, you can 
-now benchmark MMD-Reg and the other non-learning-based registration methods. 
+After downloading and processing the PCPNet Dataset,
+Wild Places and KITTI Odometry, you can now benchmark MMD-Reg
+and the other non-learning-based registration methods.
 While running the benchmarks, results can be found in `Results`.
 
 ### Run CPU PCPNet benchmarks with CPU-only Python virtual environment active
@@ -177,6 +231,15 @@ This benchmark could take **hours to run**.
 
 ```bash
 bash benchmark_gpu_wild_places.sh
+```
+
+### Run GPU KITTI Odometry benchmarks with GPU Python virtual environment active
+
+Ensure the **GPU** Python virtual environment is active. 
+This benchmark could take **hours to run**.
+
+```bash
+bash benchmark_gpu_kitti_odometry.sh
 ```
 
 ## Train and Test Unsupervised Neural MMD-Reg (G/L)
