@@ -338,8 +338,8 @@ def get_args():
     Returns:
         An argparse.Namespace containing the parsed arguments.
     """
-    default_base_path = os.path.join("Datasets", "ModelNet40")
-    default_save_path = os.path.join("Datasets", "processed_modelnet40.hdf5")
+    default_base_path = os.path.join("datasets", "modelnet40")
+    default_save_path = os.path.join("datasets", "processed", "modelnet40.hdf5")
     all_categories = get_all_categories()
     splits = ["all", "test", "train"]
     parser = argparse.ArgumentParser()
