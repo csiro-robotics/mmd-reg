@@ -122,8 +122,8 @@ def get_args():
     """
     # Sequence V-01 has missing data.
     sequens = ["K-01", "K-02", "K-03", "K-04", "V-02", "V-03", "V-04"]
-    default_base_path = os.path.join("Datasets", "Wild-Places")
-    default_save_path = os.path.join("Datasets", "processed_wild_places.hdf5")
+    default_base_path = os.path.join("datasets", "wild_places")
+    default_save_path = os.path.join("datasets", "processed", "wild.hdf5")
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_path", type=str, default=default_base_path)
     parser.add_argument("--save_path", type=str, default=default_save_path)
