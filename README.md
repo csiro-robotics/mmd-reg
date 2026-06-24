@@ -33,6 +33,51 @@ datasets/
 └── ...
 ```
 
+### Wild Places
+
+Create the base directory:
+
+```bash
+mkdir -p datasets/wild_places
+```
+
+Then, from <https://data.csiro.au/collection/csiro:56372>, 
+download sequences **K-03**, **K-04**, **V-03**, and **V-04**, 
+and place them into `datasets/wild_places/`.
+We recommend downloading via the `Download files via S3 Client` 
+option using the AWS Command Line Interface (AWS CLI). 
+To do this, open the collection's **Files** tab, click **Download**, 
+and choose `Download files via S3 Client` to obtain the AWS CLI command.
+
+Then prepare the data:
+
+```bash
+bash scripts/prepare_wild_places.sh
+```
+
+There should now be a `datasets` directory like:
+
+```text
+datasets/
+├── wild_places/
+│   ├── K-03/
+│   │   ├── Clouds/
+│   │   │   ├── 1639434737.3923593.bin
+│   │   │   └── ...
+│   │   ├── Clouds_downsampled/
+│   │   └── submap_poses.csv
+│   ├── K-04/
+│   ├── V-03/
+│   └── V-04/
+├── processed/
+│   ├── wild_places_k_03.hdf5
+│   ├── wild_places_k_04.hdf5
+│   ├── wild_places_v_03.hdf5
+│   ├── wild_places_v_04.hdf5
+│   └── ...
+└── ...
+```
+
 ### ModelNet40
 
 Download the data, unzip it, and clean up:
