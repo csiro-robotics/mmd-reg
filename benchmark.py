@@ -34,8 +34,8 @@ def get_args():
         "FilterReg",  # Parameters set for PCPNet dataset.
         "GMMReg",  # Parameters set for PCPNet dataset.
         "SVR",  # Parameters set for PCPNet dataset.
-        "Multi-Scale-ICP-Point-To-Point-GPU",  # Parameters set for Wild Places.
-        "Multi-Scale-ICP-Point-To-Plane-GPU",  # Parameters set for Wild Places.
+        "Multi-Scale-ICP-Point-To-Point-GPU",  # Parameters set for Real Outdoor
+        "Multi-Scale-ICP-Point-To-Plane-GPU",  # Parameters set for Real Outdoor
     ]
     data_path = os.path.join("Datasets", "pcpnet_test_05k.hdf5")
     save_path = os.path.join("Results", "benchmark.json")
