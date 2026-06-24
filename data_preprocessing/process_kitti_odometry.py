@@ -132,8 +132,8 @@ def get_args():
         An argparse.Namespace containing the parsed arguments.
     """
     sequens = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
-    default_base_path = os.path.join("Datasets", "KITTI")
-    default_save_path = os.path.join("Datasets", "processed_kitti.hdf5")
+    default_base_path = os.path.join("datasets", "kitti")
+    default_save_path = os.path.join("datasets", "processed", "kitti.hdf5")
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_path", type=str, default=default_base_path)
     parser.add_argument("--save_path", type=str, default=default_save_path)
