@@ -13,7 +13,9 @@ export JAX_DEFAULT_MATMUL_PRECISION="highest"
 
 D="Datasets/Processed/pcpnet_gradient.hdf5"
 
+python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
+python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 64 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Laplace
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Point-CPU 
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Plane-CPU 
@@ -26,7 +28,9 @@ python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm SVR
 
 D="Datasets/Processed/pcpnet_high_noise.hdf5"
 
+python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
+python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 64 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Laplace
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Point-CPU 
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Plane-CPU 
@@ -39,7 +43,9 @@ python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm SVR
 
 D="Datasets/Processed/pcpnet_striped.hdf5"
 
+python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
+python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 64 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Laplace
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Point-CPU 
 python -u benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Plane-CPU 
