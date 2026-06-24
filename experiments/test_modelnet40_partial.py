@@ -1,19 +1,16 @@
-import h5py
 import jax
 import jax.numpy as jnp
-import optax
-from dataset_with_overlap_masks import PointCloudDataset, RandomCrop
-from dataset_with_overlap_masks import RandomJitter, RandomShuffle
-from dataset_with_overlap_masks import RandomRotateSource, RandomTranslateSource
+from neural_mmd_reg.dataset_with_overlap_masks import PointCloudDataset
 from flax import nnx
 from jaxopt.linear_solve import solve_lu
-from losses_and_metrics import get_overlap_accuracy, get_overlap_loss
-from losses_and_metrics import get_rotation_errors, get_rotation_loss
-from losses_and_metrics import get_translation_errors, get_translation_loss
-from mmd_weighted import batched_inner_objective_solutions, expm_skew
-from set_transformer import SupervisedModel, count_params, restore_model, save_model
+from neural_mmd_reg.losses_and_metrics import get_rotation_errors
+from neural_mmd_reg.losses_and_metrics import get_rotation_loss
+from neural_mmd_reg.losses_and_metrics import get_translation_errors
+from neural_mmd_reg.losses_and_metrics import get_translation_loss
+from mmd_reg.mmd_weighted import batched_inner_objective_solutions, expm_skew
+from neural_mmd_reg.set_transformer import SupervisedModel, count_params
+from neural_mmd_reg.set_transformer import restore_model
 from torch.utils.data import DataLoader, default_collate
-from torchvision.transforms import v2
 
 
 def get_modelnet40_partial_dataloader(
