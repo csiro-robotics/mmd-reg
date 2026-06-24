@@ -251,8 +251,8 @@ def get_args():
     Returns:
         An argparse.Namespace containing the parsed arguments.
     """
-    default_base_path = os.path.join("Datasets", "PCPNet")
-    default_save_path = os.path.join("Datasets", "processed_pcpnet.hdf5")
+    default_base_path = os.path.join("datasets", "pcpnet")
+    default_save_path = os.path.join("datasets", "processed", "pcpnet.hdf5")
     splits = get_splits_dict().keys()
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_path", type=str, default=default_base_path)
