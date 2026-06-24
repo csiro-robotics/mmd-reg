@@ -4,7 +4,7 @@ import jax.numpy as jnp
 import numpy as np
 import open3d as o3d
 import probreg
-from mmd_unweighted import expm_skew, inner_objective_solution
+from mmd_reg.mmd_unweighted import expm_skew, inner_objective_solution
 
 
 def load_data_to_list(data_path):
