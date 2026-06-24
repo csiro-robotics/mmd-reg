@@ -78,6 +78,61 @@ datasets/
 └── ...
 ```
 
+### KITTI Odometry
+
+Create the base directory:
+
+```bash
+mkdir -p datasets/kitti/odometry
+```
+
+Then, from <https://www.cvlibs.net/datasets/kitti/eval_odometry.php>,
+download `data_odometry_calib.zip`, `data_odometry_poses.zip`, and
+`data_odometry_velodyne.zip`, and place them into `datasets/kitti/odometry/`.
+Then unzip them:
+
+```bash
+unzip datasets/kitti/odometry/data_odometry_calib.zip -d datasets/kitti/odometry/
+unzip datasets/kitti/odometry/data_odometry_poses.zip -d datasets/kitti/odometry/
+unzip datasets/kitti/odometry/data_odometry_velodyne.zip -d datasets/kitti/odometry/
+```
+
+Then prepare the data:
+
+```bash
+bash scripts/prepare_kitti_odometry.sh
+```
+
+There should now be a `datasets` directory like:
+
+```text
+datasets/
+├── kitti/
+│   └── odometry/
+│       └── dataset/
+│           ├── poses/
+│           │   ├── 00.txt
+│           │   ├── 01.txt
+│           │   └── ...
+│           └── sequences/
+│               ├── 00/
+│               │   ├── velodyne/
+│               │   │   ├── 000000.bin
+│               │   │   ├── 000001.bin
+│               │   │   └── ...
+│               │   ├── calib.txt
+│               │   └── times.txt
+│               ├── 01/
+│               └── ...
+├── processed/
+│   ├── kitti_odometry_07.hdf5
+│   ├── kitti_odometry_08.hdf5
+│   ├── kitti_odometry_09.hdf5
+│   ├── kitti_odometry_10.hdf5
+│   └── ...
+└── ...
+```
+
 ### ModelNet40
 
 Download the data, unzip it, and clean up:
