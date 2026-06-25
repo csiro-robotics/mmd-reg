@@ -1,21 +1,21 @@
 import jax
 import jax.numpy as jnp
-from neural_mmd_reg.dataset_with_overlap_masks import PointCloudDataset
 from flax import nnx
 from jaxopt.linear_solve import solve_lu
+from mmd_reg.mmd_weighted import batched_inner_objective_solutions, expm_skew
+from neural_mmd_reg.dataset_with_overlap_masks import PointCloudDataset
 from neural_mmd_reg.losses_and_metrics import get_rotation_errors
 from neural_mmd_reg.losses_and_metrics import get_rotation_loss
 from neural_mmd_reg.losses_and_metrics import get_translation_errors
 from neural_mmd_reg.losses_and_metrics import get_translation_loss
-from mmd_reg.mmd_weighted import batched_inner_objective_solutions, expm_skew
-from neural_mmd_reg.set_transformer import SupervisedModel, count_params
-from neural_mmd_reg.set_transformer import restore_model
+from neural_mmd_reg.set_transformer import SupervisedModel
+from neural_mmd_reg.set_transformer import count_params, restore_model
 from torch.utils.data import DataLoader, default_collate
 
 
 def get_modelnet40_partial_dataloader(
     batch_size,
-    test_data_path="Datasets/Processed/modelnet40_partial_test.hdf5",
+    test_data_path="datasets/processed/modelnet40_partial_test.hdf5",
 ):
     """
     Return the test PyTorch DataLoader.
