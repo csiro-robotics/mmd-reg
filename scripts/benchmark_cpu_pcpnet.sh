@@ -1,10 +1,12 @@
 #!/bin/bash
 
 mkdir -p results
-S="results/cpu_pcpnet.json"
+S="results/pcpnet_cpu.json"
 
+export PYTHONPATH=.
 export JAX_PLATFORMS="cpu"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
+export JAX_SKIP_CUDA_CONSTRAINTS_CHECK=1
 
 # Parameters for algorithms, other than MMD-Reg, have already been set for PCPNet
 
