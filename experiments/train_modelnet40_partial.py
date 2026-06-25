@@ -2,30 +2,30 @@ import h5py
 import jax
 import jax.numpy as jnp
 import optax
+from flax import nnx
+from mmd_reg.mmd_weighted import expm_skew
 from neural_mmd_reg.dataset_with_overlap_masks import PointCloudDataset
 from neural_mmd_reg.dataset_with_overlap_masks import RandomCrop
 from neural_mmd_reg.dataset_with_overlap_masks import RandomJitter
 from neural_mmd_reg.dataset_with_overlap_masks import RandomShuffle
 from neural_mmd_reg.dataset_with_overlap_masks import RandomRotateSource
 from neural_mmd_reg.dataset_with_overlap_masks import RandomTranslateSource
-from flax import nnx
 from neural_mmd_reg.losses_and_metrics import get_overlap_accuracy
 from neural_mmd_reg.losses_and_metrics import get_overlap_loss
 from neural_mmd_reg.losses_and_metrics import get_rotation_errors
 from neural_mmd_reg.losses_and_metrics import get_rotation_loss
 from neural_mmd_reg.losses_and_metrics import get_translation_errors
 from neural_mmd_reg.losses_and_metrics import get_translation_loss
-from mmd_reg.mmd_weighted import expm_skew
-from neural_mmd_reg.set_transformer import SupervisedModel, count_params
-from neural_mmd_reg.set_transformer import save_model
+from neural_mmd_reg.set_transformer import SupervisedModel
+from neural_mmd_reg.set_transformer import count_params, save_model
 from torch.utils.data import DataLoader, default_collate
 from torchvision.transforms import v2
 
 
 def get_modelnet40_partial_dataloaders(
     batch_size,
-    train_data_path="Datasets/Processed/modelnet40_partial_train.hdf5",
-    val_data_path="Datasets/Processed/modelnet40_partial_val.hdf5",
+    train_data_path="datasets/processed/modelnet40_partial_train.hdf5",
+    val_data_path="datasets/processed/modelnet40_partial_val.hdf5",
 ):
     """
     Return the training and validation PyTorch DataLoaders.
