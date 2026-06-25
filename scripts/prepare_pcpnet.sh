@@ -2,9 +2,6 @@
 
 mkdir -p datasets/processed
 
-export JAX_PLATFORMS="cpu"
-export JAX_DEFAULT_MATMUL_PRECISION="highest"
-
 # Process test splits for high noise, gradient sampling density, and striped sampling density.
 
 uv run python -u preprocessing/process_pcpnet.py --save_path datasets/processed/pcpnet_gradient.hdf5   --split test_var_density_gradient --number_of_passes 200
