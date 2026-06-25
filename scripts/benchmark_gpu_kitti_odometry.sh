@@ -1,8 +1,10 @@
 #!/bin/bash
 
 mkdir -p results
-S="results/gpu_kitti_odometry.json"
+S="results/kitti_odometry_gpu.json"
 
+export PYTHONPATH=.
+export JAX_PLATFORMS="gpu"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
 
 # Parameters for Multi-Scale ICP have already been set for KITTI Odometry
