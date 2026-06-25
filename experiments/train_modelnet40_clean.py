@@ -3,19 +3,19 @@ import h5py
 import jax
 import jax.numpy as jnp
 import optax
+from flax import nnx
+from jaxopt.linear_solve import solve_lu
+from mmd_reg.mmd_unweighted import batched_inner_objective_solutions, expm_skew
 from neural_mmd_reg.dataset_without_overlap_masks import PointCloudDataset
 from neural_mmd_reg.dataset_without_overlap_masks import RandomRotateSource
 from neural_mmd_reg.dataset_without_overlap_masks import RandomShuffle
 from neural_mmd_reg.dataset_without_overlap_masks import RandomTranslateSource
-from flax import nnx
-from jaxopt.linear_solve import solve_lu
 from neural_mmd_reg.losses_and_metrics import get_rotation_errors
 from neural_mmd_reg.losses_and_metrics import get_rotation_loss
 from neural_mmd_reg.losses_and_metrics import get_translation_errors
 from neural_mmd_reg.losses_and_metrics import get_translation_loss
-from mmd_reg.mmd_unweighted import batched_inner_objective_solutions, expm_skew
-from neural_mmd_reg.set_transformer import UnsupervisedModel, count_params
-from neural_mmd_reg.set_transformer import save_model
+from neural_mmd_reg.set_transformer import UnsupervisedModel
+from neural_mmd_reg.set_transformer import count_params, save_model
 from torch.utils.data import DataLoader, default_collate
 from torchvision.transforms import v2
 
@@ -30,8 +30,8 @@ def get_args():
 
 def get_modelnet40_clean_dataloaders(
     batch_size,
-    train_data_path="Datasets/Processed/modelnet40_clean_train.hdf5",
-    val_data_path="Datasets/Processed/modelnet40_clean_val.hdf5",
+    train_data_path="datasets/processed/modelnet40_clean_train.hdf5",
+    val_data_path="datasets/processed/modelnet40_clean_val.hdf5",
 ):
     """
     Return the training and validation PyTorch DataLoaders.
