@@ -9,6 +9,8 @@ import os
 from jax import random
 from tqdm import trange
 
+jax.config.update("jax_platforms", "cpu")
+jax.config.update("jax_cuda_visible_devices", "")
 jax.config.update("jax_default_matmul_precision", "highest")
 
 
