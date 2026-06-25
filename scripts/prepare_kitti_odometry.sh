@@ -2,9 +2,6 @@
 
 mkdir -p datasets/processed
 
-export JAX_PLATFORMS="cpu"
-export JAX_DEFAULT_MATMUL_PRECISION="highest"
-
 # Process sequences 07, 08, 09 and 10.
 
 uv run python -u preprocessing/process_kitti_odometry.py --save_path datasets/processed/kitti_odometry_07.hdf5 --sequence 07
