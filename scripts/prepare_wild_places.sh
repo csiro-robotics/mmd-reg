@@ -2,9 +2,6 @@
 
 mkdir -p datasets/processed
 
-export JAX_PLATFORMS="cpu"
-export JAX_DEFAULT_MATMUL_PRECISION="highest"
-
 # Process sequences K-03, K-04, V-03, and V-04.
 
 uv run python -u preprocessing/process_wild_places.py --save_path datasets/processed/wild_places_k_03.hdf5 --sequence K-03
