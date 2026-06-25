@@ -12,6 +12,8 @@ from benchmark_utilities import eval_gmmreg, eval_svr
 from benchmark_utilities import get_rotation_error, get_translation_error
 from tqdm import trange
 
+jax.config.update("jax_default_matmul_precision", "highest")
+
 
 def get_args():
     """Parse command-line arguments for the registration benchmark.
@@ -37,16 +39,16 @@ def get_args():
         "Multi-Scale-ICP-Point-To-Point-GPU",  # Parameters set for Real Outdoor
         "Multi-Scale-ICP-Point-To-Plane-GPU",  # Parameters set for Real Outdoor
     ]
-    data_path = os.path.join("Datasets", "pcpnet_test_05k.hdf5")
-    save_path = os.path.join("Results", "benchmark.json")
+    default_data_path = os.path.join("datasets", "processed", "pcpnet.hdf5")
+    default_save_path = os.path.join("results", "pcpnet.json")
     Ds = [128]
     ls = [1.0]
     dist = "Laplace"
     dists = ["Gaussian", "Laplace"]
     parser = argparse.ArgumentParser()
     parser.add_argument("--algorithm", type=str, default="SVR", choices=algs)
-    parser.add_argument("--data_path", type=str, default=data_path)
-    parser.add_argument("--save_path", type=str, default=save_path)
+    parser.add_argument("--data_path", type=str, default=default_data_path)
+    parser.add_argument("--save_path", type=str, default=default_save_path)
     parser.add_argument("--mmd_reg_Ds", nargs="+", type=int, default=Ds)
     parser.add_argument("--mmd_reg_ls", nargs="+", type=float, default=ls)
     parser.add_argument("--mmd_reg_dist", type=str, default=dist, choices=dists)
