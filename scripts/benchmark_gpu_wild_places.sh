@@ -4,7 +4,7 @@ mkdir -p results
 S="results/wild_places_gpu.json"
 
 export PYTHONPATH=.
-export JAX_PLATFORMS="gpu"
+export JAX_PLATFORMS="cuda"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
 
 # Parameters for Multi-Scale ICP have already been set for Wild Places
