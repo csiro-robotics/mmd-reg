@@ -4,7 +4,7 @@ mkdir -p results
 S="results/pcpnet_gpu.json"
 
 export PYTHONPATH=.
-export JAX_PLATFORMS="gpu"
+export JAX_PLATFORMS="cuda"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
 
 # Parameters for ICP have already been set for PCPNet
