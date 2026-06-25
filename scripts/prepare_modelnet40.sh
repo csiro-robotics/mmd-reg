@@ -2,9 +2,6 @@
 
 mkdir -p datasets/processed
 
-export JAX_PLATFORMS="cpu"
-export JAX_DEFAULT_MATMUL_PRECISION="highest"
-
 # Process datasets for fully-overlapping clean point-clouds
 
 uv run python -u preprocessing/process_modelnet40.py --save_path datasets/processed/modelnet40_clean_train.hdf5 --split train --same_sample --categories airplane bathtub bed bench bookshelf bottle bowl car chair cone cup curtain desk door dresser flower_pot glass_box guitar keyboard lamp
