@@ -1,5 +1,6 @@
 import argparse
 import h5py
+import jax
 import jax.numpy as jnp
 import numpy as np
 import open3d as o3d
@@ -8,6 +9,10 @@ import pandas as pd
 from jax import random
 from jax.scipy.spatial.transform import Rotation
 from tqdm import trange
+
+jax.config.update("jax_platforms", "cpu")
+jax.config.update("jax_cuda_visible_devices", "")
+jax.config.update("jax_default_matmul_precision", "highest")
 
 
 def randomly_choose_indices(key, n, m):
