@@ -1,5 +1,31 @@
 # MMD-Reg
 
+[ICML 2026]
+**Scalable and Differentiable Point-Cloud Registration Using Maximum Mean Discrepancy**
+
+## Abstract
+
+We present MMD-Reg, a novel correspondence-free approach 
+to point-cloud registration that is differentiable and has 
+linear computational complexity in the number of points.
+We model registration as a nonlinear least-squares 
+problem based on the Maximum Mean Discrepancy, 
+approximated using random Fourier features.
+The resulting objective can be solved efficiently with 
+standard methods such as Levenberg--Marquardt, and the 
+solution is differentiable via the implicit function theorem.
+This allows MMD-Reg to be used as a differentiable 
+optimization layer within end-to-end trainable models, 
+supporting registration under challenging conditions 
+such as poor initial alignment and partial overlap.
+We demonstrate this Neural MMD-Reg formulation by integrating 
+the layer with a set transformer, training the resulting model 
+in supervised and unsupervised settings, and comparing 
+its performance against recent learning-based methods.
+We also evaluate standalone MMD-Reg, comparing its accuracy 
+and scalability against widely used non-learning-based 
+registration methods.
+
 ## Environment Setup
 
 This project uses [`uv`](https://github.com/astral-sh/uv)
