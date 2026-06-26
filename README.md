@@ -1,25 +1,42 @@
 # MMD-Reg
 
+## Environment Setup
+
+This project uses [`uv`](https://github.com/astral-sh/uv)
+for environment management. We assume you are using macOS or Linux.
+
+GPU experiments require Linux with an NVIDIA GPU that supports CUDA 12.
+
+Install the dependencies with:
+
+```bash
+uv sync
+```
+
+Note: you may need to specify the Python executable with `--python`.
+For example, on an HPC system, you may need to load a Python 3.12 module
+and run `uv sync --python "$(which python)"`.
+
 ## Download and Process Datasets
 
 ### PCPNet
 
-Download the data, unzip it, and clean up:
+Download the data, unzip it, and remove the archive:
 
 ```bash
 mkdir -p datasets/pcpnet
-curl -o datasets/pcpnet.zip https://geometry.cs.ucl.ac.uk/projects/2018/pcpnet/pclouds.zip
+curl -L -o datasets/pcpnet.zip https://geometry.cs.ucl.ac.uk/projects/2018/pcpnet/pclouds.zip
 unzip datasets/pcpnet.zip -d datasets/pcpnet/
 rm datasets/pcpnet.zip
 ```
 
-Then prepare the data:
+Then process the data:
 
 ```bash
 bash scripts/prepare_pcpnet.sh
 ```
 
-There should now be a `datasets` directory like:
+You should now have a `datasets` directory structured like this:
 
 ```text
 datasets/
@@ -33,6 +50,9 @@ datasets/
 └── ...
 ```
 
+After the processed HDF5 files have been generated, you can optionally
+delete the `datasets/pcpnet` directory to save disk space.
+
 ### Wild Places
 
 Create the base directory:
@@ -42,20 +62,20 @@ mkdir -p datasets/wild_places
 ```
 
 Then, from <https://data.csiro.au/collection/csiro:56372>, 
-download sequences **K-03**, **K-04**, **V-03**, and **V-04**, 
-and place them into `datasets/wild_places/`.
-We recommend downloading via the `Download files via S3 Client` 
-option using the AWS Command Line Interface (AWS CLI). 
+download the `K-03`, `K-04`, `V-03`, and `V-04` directories
+and place them in `datasets/wild_places/`.
+We recommend downloading the data using the **Download files via S3 Client**
+option with the AWS Command Line Interface (AWS CLI). 
 To do this, open the collection's **Files** tab, click **Download**, 
-and choose `Download files via S3 Client` to obtain the AWS CLI command.
+and choose **Download files via S3 Client** to obtain the AWS CLI command.
 
-Then prepare the data:
+Then process the data:
 
 ```bash
 bash scripts/prepare_wild_places.sh
 ```
 
-There should now be a `datasets` directory like:
+You should now have a `datasets` directory structured like this:
 
 ```text
 datasets/
@@ -78,6 +98,9 @@ datasets/
 └── ...
 ```
 
+After the processed HDF5 files have been generated, you can optionally
+delete the `datasets/wild_places` directory to save disk space.
+
 ### KITTI Odometry
 
 Create the base directory:
@@ -88,8 +111,9 @@ mkdir -p datasets/kitti/odometry
 
 Then, from <https://www.cvlibs.net/datasets/kitti/eval_odometry.php>,
 download `data_odometry_calib.zip`, `data_odometry_poses.zip`, and
-`data_odometry_velodyne.zip`, and place them into `datasets/kitti/odometry/`.
-Then unzip them:
+`data_odometry_velodyne.zip`, and place them in `datasets/kitti/odometry/`.
+
+Unzip the files:
 
 ```bash
 unzip datasets/kitti/odometry/data_odometry_calib.zip -d datasets/kitti/odometry/
@@ -97,33 +121,36 @@ unzip datasets/kitti/odometry/data_odometry_poses.zip -d datasets/kitti/odometry
 unzip datasets/kitti/odometry/data_odometry_velodyne.zip -d datasets/kitti/odometry/
 ```
 
-Then prepare the data:
+Then process the data:
 
 ```bash
 bash scripts/prepare_kitti_odometry.sh
 ```
 
-There should now be a `datasets` directory like:
+You should now have a `datasets` directory structured like this:
 
 ```text
 datasets/
 ├── kitti/
 │   └── odometry/
-│       └── dataset/
-│           ├── poses/
-│           │   ├── 00.txt
-│           │   ├── 01.txt
-│           │   └── ...
-│           └── sequences/
-│               ├── 00/
-│               │   ├── velodyne/
-│               │   │   ├── 000000.bin
-│               │   │   ├── 000001.bin
-│               │   │   └── ...
-│               │   ├── calib.txt
-│               │   └── times.txt
-│               ├── 01/
-│               └── ...
+│       ├── dataset/
+│       │   ├── poses/
+│       │   │   ├── 00.txt
+│       │   │   ├── 01.txt
+│       │   │   └── ...
+│       │   └── sequences/
+│       │       ├── 00/
+│       │       │   ├── velodyne/
+│       │       │   │   ├── 000000.bin
+│       │       │   │   ├── 000001.bin
+│       │       │   │   └── ...
+│       │       │   ├── calib.txt
+│       │       │   └── times.txt
+│       │       ├── 01/
+│       │       └── ...
+│       ├── data_odometry_calib.zip
+│       ├── data_odometry_poses.zip
+│       └── data_odometry_velodyne.zip
 ├── processed/
 │   ├── kitti_odometry_07.hdf5
 │   ├── kitti_odometry_08.hdf5
@@ -133,25 +160,28 @@ datasets/
 └── ...
 ```
 
+After the processed HDF5 files have been generated, you can optionally
+delete the `datasets/kitti` directory to save disk space.
+
 ### ModelNet40
 
-Download the data, unzip it, and clean up:
+Download the data, unzip it, and remove the archive:
 
 ```bash
 mkdir -p datasets
-curl -o datasets/ModelNet40.zip https://modelnet.cs.princeton.edu/ModelNet40.zip
+curl -L -o datasets/ModelNet40.zip https://modelnet.cs.princeton.edu/ModelNet40.zip
 unzip datasets/ModelNet40.zip -d datasets/
 mv datasets/ModelNet40 datasets/modelnet40
 rm datasets/ModelNet40.zip
 ```
 
-Then prepare the data:
+Then process the data:
 
 ```bash
 bash scripts/prepare_modelnet40.sh
 ```
 
-There should now be a `datasets` directory like:
+You should now have a `datasets` directory structured like this:
 
 ```text
 datasets/
@@ -172,4 +202,81 @@ datasets/
 │   ├── modelnet40_partial_val.hdf5
 │   └── ...
 └── ...
+```
+
+After the processed HDF5 files have been generated, you can optionally
+delete the `datasets/modelnet40` directory to save disk space.
+
+## Experiments
+
+Experiment results are saved to the `results` directory.
+
+### CPU PCPNet Benchmarks
+
+This can take **days to run**. After processing the PCPNet data, use:
+
+```bash
+bash scripts/benchmark_cpu_pcpnet.sh
+```
+
+### GPU PCPNet Benchmarks
+
+This can take **hours to run**. After processing the PCPNet data, use:
+
+```bash
+bash scripts/benchmark_gpu_pcpnet.sh
+```
+
+### GPU Wild Places Benchmarks
+
+This can take **hours to run**. After processing the Wild Places data, use:
+
+```bash
+bash scripts/benchmark_gpu_wild_places.sh
+```
+
+### GPU KITTI Odometry Benchmarks
+
+This can take **hours to run**. After processing the KITTI Odometry data, use:
+
+```bash
+bash scripts/benchmark_gpu_kitti_odometry.sh
+```
+
+### Train and Test Unsupervised Neural MMD-Reg (G/L)
+
+This can take **days to run**. After processing the ModelNet40 data,
+train the models with:
+
+```bash
+uv run python -u experiments/train_modelnet40_clean.py --dist gaussian
+uv run python -u experiments/train_modelnet40_clean.py --dist laplace
+```
+
+After training, test the models with:
+
+```bash
+JAX_DEFAULT_MATMUL_PRECISION="highest" uv run python -u experiments/test_modelnet40_clean.py --dist gaussian
+JAX_DEFAULT_MATMUL_PRECISION="highest" uv run python -u experiments/test_modelnet40_clean.py --dist laplace
+```
+
+### Train, Tune, and Test Supervised Neural MMD-Reg
+
+This can take **days to run**. After processing the ModelNet40 data,
+train the model with:
+
+```bash
+uv run python -u experiments/train_modelnet40_partial.py
+```
+
+After training, tune the model with:
+
+```bash
+uv run python -u experiments/tune_modelnet40_partial.py
+```
+
+After tuning, test the model with:
+
+```bash
+uv run python -u experiments/test_modelnet40_partial.py
 ```
