@@ -143,7 +143,9 @@ if __name__ == "__main__":
     N = len(val_dl.dataset)
 
     num_steps = num_epochs * len(train_dl)
-    learning_rate_fn = optax.linear_onecycle_schedule(num_steps, 1e-3, 0.01, 0.99)
+    learning_rate_fn = optax.linear_onecycle_schedule(
+        num_steps, 1e-3, 0.01, 0.99
+    )
     length_scale_fn = optax.linear_schedule(0.1, 0.05, num_epochs)
 
     model = UnsupervisedModel(
@@ -167,6 +169,9 @@ if __name__ == "__main__":
     key, subkey = jax.random.split(key)
     Ws_eval = dist_fn(subkey, (1, mmd_D, 3))
     Ws_eval = jnp.tile(Ws_eval, (batch_size, 1, 1))
+
+    epochs_save_path = f"results/epochs_clean_{dist}_trained.hdf5"
+    params_save_path = f"results/params_clean_{dist}_trained.msgpack"
 
     for epoch in range(num_epochs):
         length_scale = jnp.asarray(length_scale_fn(epoch))
@@ -209,7 +214,7 @@ if __name__ == "__main__":
         print(f"  Val MMD Translation Error: {jnp.mean(all_mmd_errors_t):.5f}")
 
         es = f"epoch_{epoch}"  # Epoch string.
-        with h5py.File("results_clean.hdf5", "x" if epoch == 0 else "r+") as f:
+        with h5py.File(epochs_save_path, "x" if epoch == 0 else "r+") as f:
             f.create_dataset(f"{es}/length_scale", data=length_scale)
             f.create_dataset(f"{es}/train_loss", data=train_loss)
             f.create_dataset(f"{es}/val_loss", data=val_loss)
@@ -218,4 +223,4 @@ if __name__ == "__main__":
             f.create_dataset(f"{es}/all_mmd_errors_R", data=all_mmd_errors_R)
             f.create_dataset(f"{es}/all_mmd_errors_t", data=all_mmd_errors_t)
 
-    save_model(model, f"trained_model_params_clean_{dist}.msgpack")
+    save_model(model, params_save_path)
