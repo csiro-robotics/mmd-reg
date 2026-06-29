@@ -105,7 +105,9 @@ def loss_fn(model, Ws, batch):
 def train_step(model, optimizer, Ws, batch):
     wrt = nnx.All(nnx.Param, nnx.PathContains("head_ls"))
     argnums = nnx.DiffState(0, wrt)
-    value_and_grad_fn = nnx.value_and_grad(loss_fn, argnums=argnums, has_aux=True)
+    value_and_grad_fn = nnx.value_and_grad(
+        loss_fn, argnums=argnums, has_aux=True
+    )
     (loss, predictions), grads = value_and_grad_fn(model, Ws, batch)
     optimizer.update(model, grads)
     return loss
@@ -142,7 +144,7 @@ if __name__ == "__main__":
         drop=0.0,
         rngs=nnx.Rngs(0),
     )
-    model = restore_model(model, "trained_model_params_partial.msgpack")
+    model = restore_model(model, "results/params_partial_trained.msgpack")
     print(f"Number of model parameters: {count_params(model):,}")
 
     wrt = nnx.All(nnx.Param, nnx.PathContains("head_ls"))
@@ -195,4 +197,4 @@ if __name__ == "__main__":
         print(f"  Val MMD Rotation Error: {jnp.mean(all_mmd_errors_R):.5f}")
         print(f"  Val MMD Translation Error: {jnp.mean(all_mmd_errors_t):.5f}")
 
-    save_model(model, "tuned_model_params_partial.msgpack")
+    save_model(model, "results/params_partial_tuned.msgpack")
