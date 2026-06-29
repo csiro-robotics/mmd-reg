@@ -112,7 +112,9 @@ if __name__ == "__main__":
     N = len(val_dl.dataset)
 
     num_steps = num_epochs * len(train_dl)
-    learning_rate_fn = optax.warmup_cosine_decay_schedule(1e-6, 1e-4, 1000, num_steps)
+    learning_rate_fn = optax.warmup_cosine_decay_schedule(
+        1e-6, 1e-4, 1000, num_steps
+    )
 
     model = SupervisedModel(
         dim_i=3,
@@ -128,6 +130,9 @@ if __name__ == "__main__":
         optax.adam(learning_rate_fn),
     )
     optimizer = nnx.Optimizer(model, optimizer, wrt=nnx.Param)
+
+    epochs_save_path = "results/epochs_partial_trained.hdf5"
+    params_save_path = "results/params_partial_trained.msgpack"
 
     for epoch in range(num_epochs):
         model.train()
@@ -161,11 +166,11 @@ if __name__ == "__main__":
         print(f"  Val Net Translation Error: {jnp.mean(all_net_errors_t):.5f}")
 
         es = f"epoch_{epoch}"  # Epoch string.
-        with h5py.File("results_partial.hdf5", "x" if epoch == 0 else "r+") as f:
+        with h5py.File(epochs_save_path, "x" if epoch == 0 else "r+") as f:
             f.create_dataset(f"{es}/train_loss", data=train_loss)
             f.create_dataset(f"{es}/val_loss", data=val_loss)
             f.create_dataset(f"{es}/val_overlap_acc", data=val_overlap_acc)
             f.create_dataset(f"{es}/all_net_errors_R", data=all_net_errors_R)
             f.create_dataset(f"{es}/all_net_errors_t", data=all_net_errors_t)
 
-    save_model(model, "trained_model_params_partial.msgpack")
+    save_model(model, params_save_path)
