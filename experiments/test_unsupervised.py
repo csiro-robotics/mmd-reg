@@ -119,7 +119,9 @@ if __name__ == "__main__":
         drop=0.1,
         rngs=nnx.Rngs(0),
     )
-    model = restore_model(model, f"results/params_clean_{dist}_trained.msgpack")
+    model = restore_model(
+        model, f"results/params_unsupervised_{dist}_trained.msgpack"
+    )
     print(f"Number of model parameters: {count_params(model):,}")
 
     key = jax.random.key(0)
