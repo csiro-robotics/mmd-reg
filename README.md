@@ -59,7 +59,7 @@ rm datasets/pcpnet.zip
 Then process the data:
 
 ```bash
-bash scripts/prepare_pcpnet.sh
+bash scripts/process_pcpnet.sh
 ```
 
 You should now have a `datasets` directory structured like this:
@@ -98,7 +98,7 @@ and choose **Download files via S3 Client** to obtain the AWS CLI command.
 Then process the data:
 
 ```bash
-bash scripts/prepare_wild_places.sh
+bash scripts/process_wild_places.sh
 ```
 
 You should now have a `datasets` directory structured like this:
@@ -150,7 +150,7 @@ unzip datasets/kitti/odometry/data_odometry_velodyne.zip -d datasets/kitti/odome
 Then process the data:
 
 ```bash
-bash scripts/prepare_kitti_odometry.sh
+bash scripts/process_kitti_odometry.sh
 ```
 
 You should now have a `datasets` directory structured like this:
@@ -204,7 +204,7 @@ rm datasets/ModelNet40.zip
 Then process the data:
 
 ```bash
-bash scripts/prepare_modelnet40.sh
+bash scripts/process_modelnet40.sh
 ```
 
 You should now have a `datasets` directory structured like this:
