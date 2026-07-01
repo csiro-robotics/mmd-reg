@@ -131,8 +131,8 @@ if __name__ == "__main__":
     )
     optimizer = nnx.Optimizer(model, optimizer, wrt=nnx.Param)
 
-    epochs_save_path = "results/epochs_partial_trained.hdf5"
-    params_save_path = "results/params_partial_trained.msgpack"
+    epochs_save_path = "results/epochs_supervised_trained.hdf5"
+    params_save_path = "results/params_supervised_trained.msgpack"
 
     for epoch in range(num_epochs):
         model.train()
