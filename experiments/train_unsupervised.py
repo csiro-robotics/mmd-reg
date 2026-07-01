@@ -170,8 +170,8 @@ if __name__ == "__main__":
     Ws_eval = dist_fn(subkey, (1, mmd_D, 3))
     Ws_eval = jnp.tile(Ws_eval, (batch_size, 1, 1))
 
-    epochs_save_path = f"results/epochs_clean_{dist}_trained.hdf5"
-    params_save_path = f"results/params_clean_{dist}_trained.msgpack"
+    epochs_save_path = f"results/epochs_unsupervised_{dist}_trained.hdf5"
+    params_save_path = f"results/params_unsupervised_{dist}_trained.msgpack"
 
     for epoch in range(num_epochs):
         length_scale = jnp.asarray(length_scale_fn(epoch))
