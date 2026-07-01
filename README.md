@@ -269,21 +269,21 @@ This can take **hours to run**. After processing the KITTI Odometry data, use:
 bash scripts/benchmark_gpu_kitti_odometry.sh
 ```
 
-### Train and Test Unsupervised Neural MMD-Reg (G/L)
+### Train and Test Unsupervised Neural MMD-Reg
 
 This can take **days to run**. After processing the ModelNet40 data,
 train the models with:
 
 ```bash
-uv run python -u experiments/train_modelnet40_clean.py --dist gaussian
-uv run python -u experiments/train_modelnet40_clean.py --dist laplace
+bash scripts/train_unsupervised_gaussian.sh
+bash scripts/train_unsupervised_laplace.sh
 ```
 
 After training, test the models with:
 
 ```bash
-JAX_DEFAULT_MATMUL_PRECISION="highest" uv run python -u experiments/test_modelnet40_clean.py --dist gaussian
-JAX_DEFAULT_MATMUL_PRECISION="highest" uv run python -u experiments/test_modelnet40_clean.py --dist laplace
+bash scripts/test_unsupervised_gaussian.sh
+bash scripts/test_unsupervised_laplace.sh
 ```
 
 ### Train, Tune, and Test Supervised Neural MMD-Reg
@@ -292,17 +292,17 @@ This can take **days to run**. After processing the ModelNet40 data,
 train the model with:
 
 ```bash
-uv run python -u experiments/train_modelnet40_partial.py
+bash scripts/train_supervised.sh
 ```
 
 After training, tune the model with:
 
 ```bash
-uv run python -u experiments/tune_modelnet40_partial.py
+bash scripts/tune_supervised.sh
 ```
 
 After tuning, test the model with:
 
 ```bash
-uv run python -u experiments/test_modelnet40_partial.py
+bash scripts/test_supervised.sh
 ```
