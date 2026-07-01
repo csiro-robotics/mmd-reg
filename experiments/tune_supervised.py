@@ -144,7 +144,7 @@ if __name__ == "__main__":
         drop=0.0,
         rngs=nnx.Rngs(0),
     )
-    model = restore_model(model, "results/params_partial_trained.msgpack")
+    model = restore_model(model, "results/params_supervised_trained.msgpack")
     print(f"Number of model parameters: {count_params(model):,}")
 
     wrt = nnx.All(nnx.Param, nnx.PathContains("head_ls"))
@@ -197,4 +197,4 @@ if __name__ == "__main__":
         print(f"  Val MMD Rotation Error: {jnp.mean(all_mmd_errors_R):.5f}")
         print(f"  Val MMD Translation Error: {jnp.mean(all_mmd_errors_t):.5f}")
 
-    save_model(model, "results/params_partial_tuned.msgpack")
+    save_model(model, "results/params_supervised_tuned.msgpack")
