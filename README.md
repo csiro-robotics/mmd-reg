@@ -238,7 +238,10 @@ delete the `datasets/modelnet40` directory to save disk space.
 
 ## Experiments
 
-Experiment results are saved to the `results` directory.
+Experiment scripts create the `results` directory if it does not already exist,
+then save results there.
+Note that some dataset preprocessing steps and experiments are
+non-deterministic, so results may vary between runs.
 
 ### CPU PCPNet Benchmarks
 
