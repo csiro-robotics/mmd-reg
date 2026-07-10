@@ -1,7 +1,6 @@
 #!/bin/bash
 
 mkdir -p results
-S="results/pcpnet_gpu.json"
 
 export PYTHONPATH=.
 export JAX_PLATFORMS="cuda"
@@ -12,6 +11,7 @@ export JAX_DEFAULT_MATMUL_PRECISION="highest"
 # Benchmark split for high noise.
 
 D="datasets/processed/pcpnet_high_noise.hdf5"
+S="results/pcpnet_gpu_high_noise.json"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Laplace
@@ -21,6 +21,7 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 # Benchmark split for gradient sampling density.
 
 D="datasets/processed/pcpnet_gradient.hdf5"
+S="results/pcpnet_gpu_gradient.json"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Laplace
@@ -30,6 +31,7 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 # Benchmark split for striped sampling density.
 
 D="datasets/processed/pcpnet_striped.hdf5"
+S="results/pcpnet_gpu_striped.json"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Laplace
@@ -37,6 +39,8 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm ICP-Point-To-Plane-GPU 
 
 # Benchmark splits to measure GPU runtime for different numbers of points.
+
+S="results/pcpnet_gpu_time.json"
 
 for i in 1 10 20 30 40 50; do
     I=$(printf "%02d" "$i")
