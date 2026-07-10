@@ -246,19 +246,21 @@ non-deterministic, so results may vary between runs.
 
 ### PCPNet Benchmarks
 
-After processing the PCPNet data, run the CPU or GPU benchmarks below.
+Run the CPU and GPU benchmarks below after processing the PCPNet data.
 
-#### CPU PCPNet Benchmarks
+#### CPU
 
-This can take **days to run**. To run the CPU benchmarks, use:
+This can take **days to run**.
+To run the CPU PCPNet benchmarks, use:
 
 ```bash
 bash scripts/benchmark_cpu_pcpnet.sh
 ```
 
-#### GPU PCPNet Benchmarks
+#### GPU
 
-This can take **hours to run**. To run the GPU benchmarks, use:
+This can take **hours to run**.
+To run the GPU PCPNet benchmarks, use:
 
 ```bash
 bash scripts/benchmark_gpu_pcpnet.sh
@@ -266,7 +268,8 @@ bash scripts/benchmark_gpu_pcpnet.sh
 
 ### GPU Wild Places Benchmarks
 
-This can take **hours to run**. After processing the Wild Places data, use:
+This can take **hours to run**.
+After processing the Wild Places data, run the GPU benchmarks with:
 
 ```bash
 bash scripts/benchmark_gpu_wild_places.sh
@@ -274,43 +277,81 @@ bash scripts/benchmark_gpu_wild_places.sh
 
 ### GPU KITTI Odometry Benchmarks
 
-This can take **hours to run**. After processing the KITTI Odometry data, use:
+This can take **hours to run**.
+After processing the KITTI Odometry data, run the GPU benchmarks with:
 
 ```bash
 bash scripts/benchmark_gpu_kitti_odometry.sh
 ```
 
-### Train and Test Unsupervised Neural MMD-Reg
+### Unsupervised Neural MMD-Reg with Gaussian Random Frequencies
 
-This can take **days to run**. After processing the ModelNet40 data,
-train the models with:
+Train and test the model using the commands below
+after processing the ModelNet40 data.
+
+#### Train
+
+This can take **days to run**.
+To train the model, use:
 
 ```bash
 bash scripts/train_unsupervised_gaussian.sh
-bash scripts/train_unsupervised_laplace.sh
 ```
 
-After training, test the models with:
+#### Test
+
+After training, test the model with:
 
 ```bash
 bash scripts/test_unsupervised_gaussian.sh
+```
+
+### Unsupervised Neural MMD-Reg with Laplace Random Frequencies
+
+Train and test the model using the commands below
+after processing the ModelNet40 data.
+
+#### Train
+
+This can take **days to run**. 
+To train the model, use:
+
+```bash
+bash scripts/train_unsupervised_laplace.sh
+```
+
+#### Test
+
+After training, test the model with:
+
+```bash
 bash scripts/test_unsupervised_laplace.sh
 ```
 
-### Train, Tune, and Test Supervised Neural MMD-Reg
+### Supervised Neural MMD-Reg with Laplace Random Frequencies
 
-This can take **days to run**. After processing the ModelNet40 data,
-train the model with:
+Train, tune, and test the model using the commands below
+after processing the ModelNet40 data.
+
+#### Train
+
+This can take **days to run**.
+To train the model, use:
 
 ```bash
 bash scripts/train_supervised.sh
 ```
 
+#### Tune
+
+This can take **hours to run**. 
 After training, tune the model with:
 
 ```bash
 bash scripts/tune_supervised.sh
 ```
+
+#### Test
 
 After tuning, test the model with:
 
