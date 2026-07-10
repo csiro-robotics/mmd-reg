@@ -305,9 +305,9 @@ def draw_point_clouds(X, Y):
 
 
 if __name__ == "__main__":
-    train_data_path = "Datasets/Processed/modelnet40_clean_train.hdf5"
-    val_data_path = "Datasets/Processed/modelnet40_clean_val.hdf5"
-    test_data_path = "Datasets/Processed/modelnet40_clean_test.hdf5"
+    train_data_path = "datasets/processed/modelnet40_clean_train.hdf5"
+    val_data_path = "datasets/processed/modelnet40_clean_val.hdf5"
+    test_data_path = "datasets/processed/modelnet40_clean_test.hdf5"
     train_tr = v2.Compose([RandomRotateSource(), RandomTranslateSource()])
     train_ds = PointCloudDataset(train_data_path, transform=train_tr)
     val_ds = PointCloudDataset(val_data_path, transform=None)
