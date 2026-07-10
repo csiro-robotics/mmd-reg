@@ -3,6 +3,9 @@
 [ICML 2026]
 **Scalable and Differentiable Point-Cloud Registration Using Maximum Mean Discrepancy**
 
+Rixon Crane, Fahira Afzal Maken, Nicholas Lawrance, Stanislav Funiak,
+Kasra Khosoussi, Ming Xu, Russell Tsuchida
+
 ## Abstract
 
 We present MMD-Reg, a novel correspondence-free approach 
@@ -28,7 +31,7 @@ registration methods.
 
 ## Environment Setup
 
-This project uses [`uv`](https://github.com/astral-sh/uv)
+This project uses <https://github.com/astral-sh/uv>
 for environment management. We assume you are using macOS or Linux.
 
 GPU experiments require Linux with an NVIDIA GPU that supports CUDA 12.
@@ -51,7 +54,7 @@ Download the data, unzip it, and remove the archive:
 
 ```bash
 mkdir -p datasets/pcpnet
-curl -L -o datasets/pcpnet.zip https://geometry.cs.ucl.ac.uk/projects/2018/pcpnet/pclouds.zip
+curl -o datasets/pcpnet.zip https://geometry.cs.ucl.ac.uk/projects/2018/pcpnet/pclouds.zip
 unzip datasets/pcpnet.zip -d datasets/pcpnet/
 rm datasets/pcpnet.zip
 ```
@@ -195,7 +198,7 @@ Download the data, unzip it, and remove the archive:
 
 ```bash
 mkdir -p datasets
-curl -L -o datasets/ModelNet40.zip https://modelnet.cs.princeton.edu/ModelNet40.zip
+curl -o datasets/ModelNet40.zip https://modelnet.cs.princeton.edu/ModelNet40.zip
 unzip datasets/ModelNet40.zip -d datasets/
 mv datasets/ModelNet40 datasets/modelnet40
 rm datasets/ModelNet40.zip
