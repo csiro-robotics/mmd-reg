@@ -42,7 +42,7 @@ Install the dependencies with:
 uv sync
 ```
 
-Note: you may need to specify the Python executable with `--python`.
+Note: you may need to specify the Python 3.12 executable with `--python`.
 For example, on an HPC system, you may need to load a Python 3.12 module
 and run `uv sync --python "$(which python)"`.
 
