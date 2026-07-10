@@ -15,7 +15,7 @@ We model registration as a nonlinear least-squares
 problem based on the Maximum Mean Discrepancy, 
 approximated using random Fourier features.
 The resulting objective can be solved efficiently with 
-standard methods such as Levenberg--Marquardt, and the 
+standard methods such as Levenberg-Marquardt, and the 
 solution is differentiable via the implicit function theorem.
 This allows MMD-Reg to be used as a differentiable 
 optimization layer within end-to-end trainable models, 
@@ -47,6 +47,11 @@ For example, on an HPC system, you may need to load a Python 3.12 module
 and run `uv sync --python "$(which python)"`.
 
 ## Download and Process Datasets
+
+Each experiment depends on a specific dataset.
+You only need to download and process the datasets required for the
+experiments you intend to run.
+Processed files are written to `datasets/processed/`.
 
 ### PCPNet
 
