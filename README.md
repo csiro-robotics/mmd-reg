@@ -248,7 +248,7 @@ non-deterministic, so results may vary between runs.
 
 After processing the PCPNet data, run the CPU or GPU benchmarks below.
 
-#### CPU
+#### CPU PCPNet Benchmarks
 
 This can take **days to run**. To run the CPU benchmarks, use:
 
@@ -256,7 +256,7 @@ This can take **days to run**. To run the CPU benchmarks, use:
 bash scripts/benchmark_cpu_pcpnet.sh
 ```
 
-#### GPU
+#### GPU PCPNet Benchmarks
 
 This can take **hours to run**. To run the GPU benchmarks, use:
 
