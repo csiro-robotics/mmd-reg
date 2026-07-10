@@ -240,20 +240,25 @@ delete the `datasets/modelnet40` directory to save disk space.
 
 Experiment scripts create the `results` directory if it does not already exist,
 then save results there.
+
 Note that some dataset preprocessing steps and experiments are
 non-deterministic, so results may vary between runs.
 
-### CPU PCPNet Benchmarks
+### PCPNet Benchmarks
 
-This can take **days to run**. After processing the PCPNet data, use:
+After processing the PCPNet data, run the CPU or GPU benchmarks below.
+
+#### CPU
+
+This can take **days to run**. To run the CPU benchmarks, use:
 
 ```bash
 bash scripts/benchmark_cpu_pcpnet.sh
 ```
 
-### GPU PCPNet Benchmarks
+#### GPU
 
-This can take **hours to run**. After processing the PCPNet data, use:
+This can take **hours to run**. To run the GPU benchmarks, use:
 
 ```bash
 bash scripts/benchmark_gpu_pcpnet.sh
