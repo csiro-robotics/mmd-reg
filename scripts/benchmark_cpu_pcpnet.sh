@@ -10,9 +10,9 @@ export JAX_SKIP_CUDA_CONSTRAINTS_CHECK=1
 
 # Parameters for algorithms, other than MMD-Reg, have already been set for PCPNet
 
-# Benchmark split for gradient sampling density.
+# Benchmark split for high noise.
 
-D="datasets/processed/pcpnet_gradient.hdf5"
+D="datasets/processed/pcpnet_high_noise.hdf5"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
@@ -25,9 +25,9 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm GMMReg
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm SVR
 
-# Benchmark split for high noise.
+# Benchmark split for gradient sampling density.
 
-D="datasets/processed/pcpnet_high_noise.hdf5"
+D="datasets/processed/pcpnet_gradient.hdf5"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
