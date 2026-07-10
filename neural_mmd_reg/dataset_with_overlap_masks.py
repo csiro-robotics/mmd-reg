@@ -77,98 +77,6 @@ class PointCloudDataset(Dataset):
         return X, Y, R, t, Xo, Yo
 
 
-class CenterSource:
-    """Center the source point cloud."""
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        # If ``x, y, c`` are three-dimensional vectors,
-        # ``R`` is a rotation matrix and ``y = R @ x + t``,
-        # then ``y = R @ (x - c) + (t + R @ c)``.
-        c = np.mean(X, axis=0)
-        X = X - c
-        t = t + np.matmul(R, c)
-        return X, Y, R, t, Xo, Yo
-
-
-class CenterTarget:
-    """Center the target point cloud."""
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        # If ``x, y, c`` are three-dimensional vectors,
-        # ``R`` is a rotation matrix and ``y = R @ x + t``,
-        # then ``y - c = R @ x + (t - c)``.
-        c = np.mean(Y, axis=0)
-        Y = Y - c
-        t = t - c
-        return X, Y, R, t, Xo, Yo
-
-
-def randomly_choose_indices(indices, num_choices):
-    """Randomly choose a number of indices, keeping duplicates to a minimum.
-
-    Args:
-        indices: A NumPy array of indices to choose from.
-        num_choices: The number of indices to randomly choose.
-
-    Returns:
-        A NumPy array of indices.
-    """
-    ceil = int(np.ceil(num_choices / len(indices)))
-    permutations = [np.random.permutation(indices) for i in range(ceil)]
-    permutations = np.concatenate(permutations)
-    choice = permutations[:num_choices]
-    np.random.shuffle(choice)
-    return choice
-
-
-class RandomSubsample:
-    """Randomly subsample both point clouds independently."""
-
-    def __init__(self, number_of_points=1024):
-        self.number_of_points = number_of_points
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        X_indices = np.arange(len(X))
-        Y_indices = np.arange(len(Y))
-        X_choice = randomly_choose_indices(X_indices, self.number_of_points)
-        Y_choice = randomly_choose_indices(Y_indices, self.number_of_points)
-        X = X[X_choice]
-        Y = Y[Y_choice]
-        Xo = Xo[X_choice]
-        Yo = Yo[Y_choice]
-        return X, Y, R, t, Xo, Yo
-
-
-class RandomSubsampleAndOverlap:
-    """Randomly subsample both point clouds independently to get new overlap."""
-
-    def __init__(self, number_of_points=1024):
-        self.number_of_points = number_of_points
-
-    def _sample_indices(self, overlap_mask):
-        p = np.random.uniform(0.1, 0.9)
-        k_true = int(self.number_of_points * p)
-        k_false = self.number_of_points - k_true
-        true_indices = np.nonzero(overlap_mask)[0]
-        false_indices = np.nonzero(~overlap_mask)[0]
-        selected_true = randomly_choose_indices(true_indices, k_true)
-        selected_false = randomly_choose_indices(false_indices, k_false)
-        selected_indices = np.concatenate([selected_true, selected_false])
-        np.random.shuffle(selected_indices)
-        return selected_indices
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        assert np.any(Xo) and np.any(Yo), "Must be partially overlapping."
-        assert ~np.all(Xo) and ~np.all(Yo), "Must not be fully overlapping."
-        X_selected_indices = self._sample_indices(Xo)
-        Y_selected_indices = self._sample_indices(Yo)
-        X = X[X_selected_indices]
-        Y = Y[Y_selected_indices]
-        Xo = Xo[X_selected_indices]
-        Yo = Yo[Y_selected_indices]
-        return X, Y, R, t, Xo, Yo
-
-
 class RandomCrop:
     """Randomly crop two fully overlapping point clouds."""
 
@@ -261,24 +169,6 @@ class RandomRotateSource:
         return X, Y, R, t, Xo, Yo
 
 
-class RandomRotateTarget:
-    """Randomly rotate the target point cloud."""
-
-    def __init__(self, min_degrees=0.0, max_degrees=45.0):
-        self.min_degrees = min_degrees
-        self.max_degrees = max_degrees
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        # If ``x, y`` are three-dimensional vectors,
-        # ``R, Q`` are rotation matrices and ``y = R @ x + t``,
-        # then ``Q @ y = (Q @ R) @ x + (Q @ t)``.
-        Q = get_random_rotation_matrix(self.min_degrees, self.max_degrees)
-        Y = np.matmul(Y, Q.T)
-        R = np.matmul(Q, R)
-        t = np.matmul(Q, t)
-        return X, Y, R, t, Xo, Yo
-
-
 def get_random_translation_vector(lower_bound, upper_bound):
     """
     Return a random translation vector, where each axis is uniformly sampled.
@@ -311,23 +201,6 @@ class RandomTranslateSource:
         return X, Y, R, t, Xo, Yo
 
 
-class RandomTranslateTarget:
-    """Randomly translate the target point cloud."""
-
-    def __init__(self, lower_bound=-0.5, upper_bound=0.5):
-        self.lower_bound = lower_bound
-        self.upper_bound = upper_bound
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        # If ``x, y, c`` are three-dimensional vectors,
-        # ``R`` is a rotation matrix and ``y = R @ x + t``,
-        # then ``y + c = R @ x + (t + c)``.
-        c = get_random_translation_vector(self.lower_bound, self.upper_bound)
-        Y = Y + c
-        t = t + c
-        return X, Y, R, t, Xo, Yo
-
-
 class RandomShuffle:
     """Randomly reorder the points in both point clouds independently."""
 
@@ -338,21 +211,6 @@ class RandomShuffle:
         Y = Y[Y_permutation]
         Xo = Xo[X_permutation]
         Yo = Yo[Y_permutation]
-        return X, Y, R, t, Xo, Yo
-
-
-class RandomSwap:
-    """Randomly swap the source point cloud with the target point cloud."""
-
-    def __call__(self, X, Y, R, t, Xo, Yo):
-        # If ``x, y`` are three-dimensional vectors,
-        # ``R`` is a rotation matrix and ``y = R @ x + t``,
-        # then ``x = (R.T) @ y + (- R.T @ t)``.
-        if np.random.random() > 0.5:
-            X, Y = Y, X
-            Xo, Yo = Yo, Xo
-            t = -1.0 * np.matmul(R.T, t)
-            R = R.T
         return X, Y, R, t, Xo, Yo
 
 
