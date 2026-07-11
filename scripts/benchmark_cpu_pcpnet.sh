@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p results
+S="results/pcpnet_cpu.json"
 
 export PYTHONPATH=.
 export JAX_PLATFORMS="cpu"
@@ -12,7 +13,6 @@ export JAX_SKIP_CUDA_CONSTRAINTS_CHECK=1
 # Benchmark split for high noise.
 
 D="datasets/processed/pcpnet_high_noise.hdf5"
-S="results/pcpnet_cpu_high_noise.json"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
@@ -28,7 +28,6 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 # Benchmark split for gradient sampling density.
 
 D="datasets/processed/pcpnet_gradient.hdf5"
-S="results/pcpnet_cpu_gradient.json"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
@@ -44,7 +43,6 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 # Benchmark split for striped sampling density.
 
 D="datasets/processed/pcpnet_striped.hdf5"
-S="results/pcpnet_cpu_striped.json"
 
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 16 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm MMD-Reg --mmd_reg_Ds 32 --mmd_reg_ls 0.75 --mmd_reg_dist Gaussian
@@ -58,8 +56,6 @@ uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --al
 uv run python -u experiments/benchmark.py --data_path "$D" --save_path "$S" --algorithm SVR
 
 # Benchmark splits to measure CPU runtime for different numbers of points.
-
-S="results/pcpnet_cpu_time.json"
 
 for i in 1 2 4 6 8 10 20 30 40 50; do
     I=$(printf "%02d" "$i")
@@ -81,8 +77,6 @@ for i in 1 2 4 6 8 10; do
 done
 
 # Benchmark splits for different outlier percentages.
-
-S="results/pcpnet_cpu_outliers.json"
 
 for i in 0 1 2 10 20 30 40 50 60 70 80 90 100; do
     I=$(printf "%03d" "$i")
