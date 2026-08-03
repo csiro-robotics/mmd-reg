@@ -13,6 +13,7 @@ dependencies = [
     "optax",
     "pandas",
     "probreg",
+    "SciencePlots",
     "tqdm",
     "jax==0.8.2; sys_platform == 'darwin'",
     "jax[cuda12]==0.8.2; sys_platform == 'linux'",
