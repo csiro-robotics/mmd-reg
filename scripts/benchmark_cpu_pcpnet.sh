@@ -3,6 +3,11 @@
 mkdir -p results
 S="results/pcpnet_cpu.json"
 
+if [[ -f "$S" ]]; then
+    echo "Skipping CPU PCPNet benchmarks as '$S' already exists."
+    exit 0
+fi
+
 export PYTHONPATH=.
 export JAX_PLATFORMS="cpu"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
