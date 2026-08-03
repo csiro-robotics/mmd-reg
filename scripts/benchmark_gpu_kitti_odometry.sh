@@ -3,6 +3,11 @@
 mkdir -p results
 S="results/kitti_odometry_gpu.json"
 
+if [[ -f "$S" ]]; then
+    echo "Skipping GPU KITTI Odometry benchmarks as '$S' already exists."
+    exit 0
+fi
+
 export PYTHONPATH=.
 export JAX_PLATFORMS="cuda"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
