@@ -42,7 +42,7 @@ Install the dependencies with:
 uv sync
 ```
 
-Note: you may need to specify the Python 3.12 executable with `--python`.
+Note that you may need to specify the Python 3.12 executable with `--python`.
 For example, on an HPC system, you may need to load a Python 3.12 module
 and run `uv sync --python "$(which python)"`.
 
@@ -270,6 +270,17 @@ To run the GPU PCPNet benchmarks, use:
 ```bash
 bash scripts/benchmark_gpu_pcpnet.sh
 ```
+
+#### Plot
+
+After running both the CPU and GPU PCPNet benchmarks,
+plot the results with:
+
+```bash
+bash scripts/plot_pcpnet_results.sh
+```
+
+The plots are saved to `results/figures/`.
 
 ### GPU Wild Places Benchmarks
 
