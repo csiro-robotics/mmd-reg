@@ -3,6 +3,11 @@
 mkdir -p results
 S="results/pcpnet_gpu.json"
 
+if [[ -f "$S" ]]; then
+    echo "Skipping GPU PCPNet benchmarks as '$S' already exists."
+    exit 0
+fi
+
 export PYTHONPATH=.
 export JAX_PLATFORMS="cuda"
 export JAX_DEFAULT_MATMUL_PRECISION="highest"
