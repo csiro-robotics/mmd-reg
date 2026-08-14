@@ -1,6 +1,12 @@
 #!/bin/bash
 
 mkdir -p results
+S="results/params_unsupervised_gaussian_trained.msgpack"
+
+if [[ -f "$S" ]]; then
+	echo "Skipping unsupervised Gaussian training as '$S' already exists."
+	exit 0
+fi
 
 export PYTHONPATH=.
 
