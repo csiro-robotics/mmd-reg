@@ -129,7 +129,7 @@ class RandomJitter:
         X_noise = np.random.normal(scale=self.scale, size=X.shape)
         X_noise = np.clip(X_noise, self.min_clip, self.max_clip)
         X = X + X_noise
-        Y_noise = np.random.normal(scale=self.scale, size=X.shape)
+        Y_noise = np.random.normal(scale=self.scale, size=Y.shape)
         Y_noise = np.clip(Y_noise, self.min_clip, self.max_clip)
         Y = Y + Y_noise
         return X, Y, R, t, Xo, Yo
