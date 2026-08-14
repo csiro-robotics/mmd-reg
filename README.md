@@ -239,7 +239,8 @@ the `datasets/modelnet40` directory to save disk space.
 Experiment scripts create the `results` directory if it does not already exist,
 then save results there.
 
-A copy of our result files is also available in the [v1.0.0 release](https://github.com/csiro-robotics/mmd-reg/releases/tag/v1.0.0).
+A copy of our result files is also available in the v1.0.0 release at
+<https://github.com/csiro-robotics/mmd-reg/releases/tag/v1.0.0>.
 
 Note that some dataset preprocessing steps and experiments are
 non-deterministic, so results may vary between runs.
