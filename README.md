@@ -258,7 +258,7 @@ curl -L -o results/pcpnet_gpu.json https://github.com/csiro-robotics/mmd-reg/rel
 
 #### CPU
 
-To run the CPU PCPNet benchmarks (it can take **days to run**), use:
+To run the CPU PCPNet benchmarks (which can take **days**), use:
 
 ```bash
 bash scripts/benchmark_cpu_pcpnet.sh
@@ -266,7 +266,7 @@ bash scripts/benchmark_cpu_pcpnet.sh
 
 #### GPU
 
-To run the GPU PCPNet benchmarks (it can take **hours to run**), use:
+To run the GPU PCPNet benchmarks (which can take **hours**), use:
 
 ```bash
 bash scripts/benchmark_gpu_pcpnet.sh
@@ -285,8 +285,8 @@ The plots are saved to `results/figures/`.
 
 ### GPU Wild Places Benchmarks
 
-Either run the GPU benchmarks below after processing the Wild Places data
-(it can take **hours to run**) or download our result file from the v1.0.0
+Either run the GPU benchmarks below (which can take **hours**) after processing
+the Wild Places data or download our result file from the v1.0.0
 release:
 
 ```bash
@@ -302,8 +302,8 @@ bash scripts/benchmark_gpu_wild_places.sh
 
 ### GPU KITTI Odometry Benchmarks
 
-Either run the GPU benchmarks below after processing the KITTI Odometry data
-(it can take **hours to run**) or download our result file from the v1.0.0
+Either run the GPU benchmarks below (which can take **hours**) after processing
+the KITTI Odometry data or download our result file from the v1.0.0
 release:
 
 ```bash
@@ -324,8 +324,8 @@ ModelNet40 data.
 
 #### Train
 
-Either run the training script below (it can take **days to run**) or download
-the trained model parameters from the v1.0.0 release:
+Either run the training script below (which can take **days**) or download the
+trained model parameters from the v1.0.0 release:
 
 ```bash
 mkdir -p results
@@ -354,8 +354,8 @@ ModelNet40 data.
 
 #### Train
 
-Either run the training script below (it can take **days to run**) or download
-the trained model parameters from the v1.0.0 release:
+Either run the training script below (which can take **days**) or download the
+trained model parameters from the v1.0.0 release:
 
 ```bash
 mkdir -p results
@@ -384,8 +384,8 @@ ModelNet40 data.
 
 #### Train
 
-Either run the training script below (it can take **days to run**) or download
-the trained model parameters from the v1.0.0 release:
+Either run the training script below (which can take **days**) or download the
+trained model parameters from the v1.0.0 release:
 
 ```bash
 mkdir -p results
@@ -401,8 +401,8 @@ bash scripts/train_supervised.sh
 #### Tune
 
 After training the model or downloading the trained model parameters above,
-either run the tuning script below (it can take **hours to run**) or download
-the tuned model parameters from the v1.0.0 release:
+either run the tuning script below (which can take **hours**) or download the
+tuned model parameters from the v1.0.0 release:
 
 ```bash
 mkdir -p results
