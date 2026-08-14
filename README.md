@@ -274,8 +274,8 @@ bash scripts/benchmark_gpu_pcpnet.sh
 
 #### Plot
 
-After either running both the CPU and GPU PCPNet benchmarks or downloading our
-result files above, plot them with:
+After processing the PCPNet data and either running both the CPU and GPU PCPNet
+benchmarks or downloading our result files above, plot the results with:
 
 ```bash
 bash scripts/plot_pcpnet_results.sh
