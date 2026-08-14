@@ -8,31 +8,26 @@ Kasra Khosoussi, Ming Xu, Russell Tsuchida
 
 ## Abstract
 
-We present MMD-Reg, a novel correspondence-free approach 
-to point-cloud registration that is differentiable and has 
-linear computational complexity in the number of points.
-We model registration as a nonlinear least-squares 
-problem based on the Maximum Mean Discrepancy, 
-approximated using random Fourier features.
-The resulting objective can be solved efficiently with 
-standard methods such as Levenberg-Marquardt, and the 
-solution is differentiable via the implicit function theorem.
-This allows MMD-Reg to be used as a differentiable 
-optimization layer within end-to-end trainable models, 
-supporting registration under challenging conditions 
-such as poor initial alignment and partial overlap.
-We demonstrate this Neural MMD-Reg formulation by integrating 
-the layer with a set transformer, training the resulting model 
-in supervised and unsupervised settings, and comparing 
-its performance against recent learning-based methods.
-We also evaluate standalone MMD-Reg, comparing its accuracy 
-and scalability against widely used non-learning-based 
+We present MMD-Reg, a novel correspondence-free approach to point-cloud
+registration that is differentiable and has linear computational complexity in
+the number of points. We model registration as a nonlinear least-squares
+problem based on the Maximum Mean Discrepancy, approximated using random
+Fourier features. The resulting objective can be solved efficiently with
+standard methods such as Levenberg-Marquardt, and the solution is
+differentiable via the implicit function theorem. This allows MMD-Reg to be
+used as a differentiable optimization layer within end-to-end trainable models,
+supporting registration under challenging conditions such as poor initial
+alignment and partial overlap. We demonstrate this Neural MMD-Reg formulation
+by integrating the layer with a set transformer, training the resulting model
+in supervised and unsupervised settings, and comparing its performance against
+recent learning-based methods. We also evaluate standalone MMD-Reg, comparing
+its accuracy and scalability against widely used non-learning-based
 registration methods.
 
 ## Environment Setup
 
-This project uses <https://github.com/astral-sh/uv>
-for environment management. We assume you are using macOS or Linux.
+This project uses <https://github.com/astral-sh/uv> for environment management.
+We assume you are using macOS or Linux.
 
 GPU experiments require Linux with an NVIDIA GPU that supports CUDA 12.
 
@@ -43,15 +38,14 @@ uv sync
 ```
 
 Note that you may need to specify the Python 3.12 executable with `--python`.
-For example, on an HPC system, you may need to load a Python 3.12 module
-and run `uv sync --python "$(which python)"`.
+For example, on an HPC system, you may need to load a Python 3.12 module and
+run `uv sync --python "$(which python)"`.
 
 ## Download and Process Datasets
 
-Each experiment depends on a specific dataset.
-You only need to download and process the datasets required for the
-experiments you intend to run.
-Processed files are written to `datasets/processed/`.
+Each experiment depends on a specific dataset. You only need to download and
+process the datasets required for the experiments you intend to run. Processed
+files are written to `datasets/processed/`.
 
 ### PCPNet
 
@@ -84,8 +78,8 @@ datasets/
 └── ...
 ```
 
-After the processed HDF5 files have been generated, you can optionally
-delete the `datasets/pcpnet` directory to save disk space.
+After the processed HDF5 files have been generated, you can optionally delete
+the `datasets/pcpnet` directory to save disk space.
 
 ### Wild Places
 
@@ -95,12 +89,11 @@ Create the base directory:
 mkdir -p datasets/wild_places
 ```
 
-Then, from <https://data.csiro.au/collection/csiro:56372>, 
-download the `K-03`, `K-04`, `V-03`, and `V-04` directories
-and place them in `datasets/wild_places/`.
-We recommend downloading the data using the **Download files via S3 Client**
-option with the AWS Command Line Interface (AWS CLI). 
-To do this, open the collection's **Files** tab, click **Download**, 
+Then, from <https://data.csiro.au/collection/csiro:56372>, download the `K-03`,
+`K-04`, `V-03`, and `V-04` directories and place them in
+`datasets/wild_places/`. We recommend downloading the data using the
+**Download files via S3 Client** option with the AWS Command Line Interface
+(AWS CLI). To do this, open the collection's **Files** tab, click **Download**,
 and choose **Download files via S3 Client** to obtain the AWS CLI command.
 
 Then process the data:
@@ -132,8 +125,8 @@ datasets/
 └── ...
 ```
 
-After the processed HDF5 files have been generated, you can optionally
-delete the `datasets/wild_places` directory to save disk space.
+After the processed HDF5 files have been generated, you can optionally delete
+the `datasets/wild_places` directory to save disk space.
 
 ### KITTI Odometry
 
@@ -143,8 +136,8 @@ Create the base directory:
 mkdir -p datasets/kitti/odometry
 ```
 
-Then, from <https://www.cvlibs.net/datasets/kitti/eval_odometry.php>,
-download `data_odometry_calib.zip`, `data_odometry_poses.zip`, and
+Then, from <https://www.cvlibs.net/datasets/kitti/eval_odometry.php>, download
+`data_odometry_calib.zip`, `data_odometry_poses.zip`, and
 `data_odometry_velodyne.zip`, and place them in `datasets/kitti/odometry/`.
 
 Unzip the files:
@@ -194,8 +187,8 @@ datasets/
 └── ...
 ```
 
-After the processed HDF5 files have been generated, you can optionally
-delete the `datasets/kitti` directory to save disk space.
+After the processed HDF5 files have been generated, you can optionally delete
+the `datasets/kitti` directory to save disk space.
 
 ### ModelNet40
 
@@ -238,25 +231,33 @@ datasets/
 └── ...
 ```
 
-After the processed HDF5 files have been generated, you can optionally
-delete the `datasets/modelnet40` directory to save disk space.
+After the processed HDF5 files have been generated, you can optionally delete
+the `datasets/modelnet40` directory to save disk space.
 
 ## Experiments
 
 Experiment scripts create the `results` directory if it does not already exist,
 then save results there.
 
+A copy of our result files is also available in the [v1.0.0 release](https://github.com/csiro-robotics/mmd-reg/releases/tag/v1.0.0).
+
 Note that some dataset preprocessing steps and experiments are
 non-deterministic, so results may vary between runs.
 
 ### PCPNet Benchmarks
 
-Run the CPU and GPU benchmarks below after processing the PCPNet data.
+Either run the CPU and GPU benchmarks below after processing the PCPNet data or
+download our result files from the v1.0.0 release:
+
+```bash
+mkdir -p results
+curl -L -o results/pcpnet_cpu.json https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/pcpnet_cpu.json
+curl -L -o results/pcpnet_gpu.json https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/pcpnet_gpu.json
+```
 
 #### CPU
 
-This can take **days to run**.
-To run the CPU PCPNet benchmarks, use:
+To run the CPU PCPNet benchmarks (it can take **days to run**), use:
 
 ```bash
 bash scripts/benchmark_cpu_pcpnet.sh
@@ -264,8 +265,7 @@ bash scripts/benchmark_cpu_pcpnet.sh
 
 #### GPU
 
-This can take **hours to run**.
-To run the GPU PCPNet benchmarks, use:
+To run the GPU PCPNet benchmarks (it can take **hours to run**), use:
 
 ```bash
 bash scripts/benchmark_gpu_pcpnet.sh
@@ -273,8 +273,8 @@ bash scripts/benchmark_gpu_pcpnet.sh
 
 #### Plot
 
-After running both the CPU and GPU PCPNet benchmarks,
-plot the results with:
+After either running both the CPU and GPU PCPNet benchmarks or downloading our
+result files above, plot them with:
 
 ```bash
 bash scripts/plot_pcpnet_results.sh
@@ -284,8 +284,16 @@ The plots are saved to `results/figures/`.
 
 ### GPU Wild Places Benchmarks
 
-This can take **hours to run**.
-After processing the Wild Places data, run the GPU benchmarks with:
+Either run the GPU benchmarks below after processing the Wild Places data
+(it can take **hours to run**) or download our result file from the v1.0.0
+release:
+
+```bash
+mkdir -p results
+curl -L -o results/wild_places_gpu.json https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/wild_places_gpu.json
+```
+
+To run the GPU Wild Places benchmarks, use:
 
 ```bash
 bash scripts/benchmark_gpu_wild_places.sh
@@ -293,8 +301,16 @@ bash scripts/benchmark_gpu_wild_places.sh
 
 ### GPU KITTI Odometry Benchmarks
 
-This can take **hours to run**.
-After processing the KITTI Odometry data, run the GPU benchmarks with:
+Either run the GPU benchmarks below after processing the KITTI Odometry data
+(it can take **hours to run**) or download our result file from the v1.0.0
+release:
+
+```bash
+mkdir -p results
+curl -L -o results/kitti_odometry_gpu.json https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/kitti_odometry_gpu.json
+```
+
+To run the GPU KITTI Odometry benchmarks, use:
 
 ```bash
 bash scripts/benchmark_gpu_kitti_odometry.sh
@@ -302,12 +318,19 @@ bash scripts/benchmark_gpu_kitti_odometry.sh
 
 ### Unsupervised Neural MMD-Reg with Gaussian Random Frequencies
 
-Train and test the model using the commands below
-after processing the ModelNet40 data.
+Train and test the model using the commands below after processing the
+ModelNet40 data.
 
 #### Train
 
-This can take **days to run**.
+Either run the training script below (it can take **days to run**) or download
+the trained model parameters from the v1.0.0 release:
+
+```bash
+mkdir -p results
+curl -L -o results/params_unsupervised_gaussian_trained.msgpack https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/params_unsupervised_gaussian_trained.msgpack
+```
+
 To train the model, use:
 
 ```bash
@@ -316,7 +339,8 @@ bash scripts/train_unsupervised_gaussian.sh
 
 #### Test
 
-After training, test the model with:
+After either training the model or downloading the trained model parameters
+above, test the model with:
 
 ```bash
 bash scripts/test_unsupervised_gaussian.sh
@@ -324,12 +348,19 @@ bash scripts/test_unsupervised_gaussian.sh
 
 ### Unsupervised Neural MMD-Reg with Laplace Random Frequencies
 
-Train and test the model using the commands below
-after processing the ModelNet40 data.
+Train and test the model using the commands below after processing the
+ModelNet40 data.
 
 #### Train
 
-This can take **days to run**. 
+Either run the training script below (it can take **days to run**) or download
+the trained model parameters from the v1.0.0 release:
+
+```bash
+mkdir -p results
+curl -L -o results/params_unsupervised_laplace_trained.msgpack https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/params_unsupervised_laplace_trained.msgpack
+```
+
 To train the model, use:
 
 ```bash
@@ -338,7 +369,8 @@ bash scripts/train_unsupervised_laplace.sh
 
 #### Test
 
-After training, test the model with:
+After either training the model or downloading the trained model parameters
+above, test the model with:
 
 ```bash
 bash scripts/test_unsupervised_laplace.sh
@@ -346,12 +378,19 @@ bash scripts/test_unsupervised_laplace.sh
 
 ### Supervised Neural MMD-Reg with Laplace Random Frequencies
 
-Train, tune, and test the model using the commands below
-after processing the ModelNet40 data.
+Train, tune, and test the model using the commands below after processing the
+ModelNet40 data.
 
 #### Train
 
-This can take **days to run**.
+Either run the training script below (it can take **days to run**) or download
+the trained model parameters from the v1.0.0 release:
+
+```bash
+mkdir -p results
+curl -L -o results/params_supervised_trained.msgpack https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/params_supervised_trained.msgpack
+```
+
 To train the model, use:
 
 ```bash
@@ -360,8 +399,16 @@ bash scripts/train_supervised.sh
 
 #### Tune
 
-This can take **hours to run**. 
-After training, tune the model with:
+After training the model or downloading the trained model parameters above,
+either run the tuning script below (it can take **hours to run**) or download
+the tuned model parameters from the v1.0.0 release:
+
+```bash
+mkdir -p results
+curl -L -o results/params_supervised_tuned.msgpack https://github.com/csiro-robotics/mmd-reg/releases/download/v1.0.0/params_supervised_tuned.msgpack
+```
+
+To tune the model, use:
 
 ```bash
 bash scripts/tune_supervised.sh
@@ -369,7 +416,8 @@ bash scripts/tune_supervised.sh
 
 #### Test
 
-After tuning, test the model with:
+After either tuning the model or downloading the tuned model parameters above,
+test the model with:
 
 ```bash
 bash scripts/test_supervised.sh
