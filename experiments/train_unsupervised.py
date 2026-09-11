@@ -1,5 +1,4 @@
 import argparse
-import h5py
 import jax
 import jax.numpy as jnp
 import optax
@@ -170,7 +169,6 @@ if __name__ == "__main__":
     Ws_eval = dist_fn(subkey, (1, mmd_D, 3))
     Ws_eval = jnp.tile(Ws_eval, (batch_size, 1, 1))
 
-    epochs_save_path = f"results/epochs_unsupervised_{dist}_trained.hdf5"
     params_save_path = f"results/params_unsupervised_{dist}_trained.msgpack"
 
     for epoch in range(num_epochs):
@@ -212,15 +210,5 @@ if __name__ == "__main__":
         print(f"  Val Net Translation Error: {jnp.mean(all_net_errors_t):.5f}")
         print(f"  Val MMD Rotation Error: {jnp.mean(all_mmd_errors_R):.5f}")
         print(f"  Val MMD Translation Error: {jnp.mean(all_mmd_errors_t):.5f}")
-
-        es = f"epoch_{epoch}"  # Epoch string.
-        with h5py.File(epochs_save_path, "x" if epoch == 0 else "r+") as f:
-            f.create_dataset(f"{es}/length_scale", data=length_scale)
-            f.create_dataset(f"{es}/train_loss", data=train_loss)
-            f.create_dataset(f"{es}/val_loss", data=val_loss)
-            f.create_dataset(f"{es}/all_net_errors_R", data=all_net_errors_R)
-            f.create_dataset(f"{es}/all_net_errors_t", data=all_net_errors_t)
-            f.create_dataset(f"{es}/all_mmd_errors_R", data=all_mmd_errors_R)
-            f.create_dataset(f"{es}/all_mmd_errors_t", data=all_mmd_errors_t)
 
     save_model(model, params_save_path)
