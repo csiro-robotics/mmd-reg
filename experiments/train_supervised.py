@@ -1,4 +1,3 @@
-import h5py
 import jax
 import jax.numpy as jnp
 import optax
@@ -131,7 +130,6 @@ if __name__ == "__main__":
     )
     optimizer = nnx.Optimizer(model, optimizer, wrt=nnx.Param)
 
-    epochs_save_path = "results/epochs_supervised_trained.hdf5"
     params_save_path = "results/params_supervised_trained.msgpack"
 
     for epoch in range(num_epochs):
@@ -164,13 +162,5 @@ if __name__ == "__main__":
         print(f"  Val Net Overlap Accuracy: {val_overlap_acc:.5f}")
         print(f"  Val Net Rotation Error: {jnp.mean(all_net_errors_R):.5f}")
         print(f"  Val Net Translation Error: {jnp.mean(all_net_errors_t):.5f}")
-
-        es = f"epoch_{epoch}"  # Epoch string.
-        with h5py.File(epochs_save_path, "x" if epoch == 0 else "r+") as f:
-            f.create_dataset(f"{es}/train_loss", data=train_loss)
-            f.create_dataset(f"{es}/val_loss", data=val_loss)
-            f.create_dataset(f"{es}/val_overlap_acc", data=val_overlap_acc)
-            f.create_dataset(f"{es}/all_net_errors_R", data=all_net_errors_R)
-            f.create_dataset(f"{es}/all_net_errors_t", data=all_net_errors_t)
 
     save_model(model, params_save_path)
