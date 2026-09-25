@@ -41,6 +41,81 @@ Note that you may need to specify the Python 3.12 executable with `--python`.
 For example, on an HPC system, you may need to load a Python 3.12 module and
 run `uv sync --python "$(which python)"`.
 
+## Examples
+
+The `examples` directory contains standalone examples of using MMD-Reg on
+synthetic and real point-cloud registration problems. For Open3D visualization,
+these examples are best run on a local machine with a display rather than on a
+remote server. Example 3 requires the AWS CLI only to download the example
+point clouds.
+
+### About Example 1
+
+This example uses MMD-Reg to register two synthetic point clouds with 100000
+points each. These point clouds are sampled from the same mesh, and the
+target point cloud is then transformed to create a registration problem.
+
+There are two important parameters, `D` and `l`, that determine the number and
+scale of the random Fourier frequencies used by MMD-Reg. In this example,
+MMD-Reg is applied once using a single value of `D` and a single value of `l`.
+
+The parameter `D` is the number of random Fourier frequencies used to approximate
+the kernel in MMD-Reg. Larger values of `D` give a more accurate approximation of
+the MMD objective, while smaller values can reduce computational cost and memory
+use.
+
+The parameter `l` is the kernel scale (or length scale) used when scaling the
+random Fourier frequencies. Smaller values of `l` produce higher-frequency
+features that are more sensitive to fine geometric detail, while larger values
+emphasize broader, coarse-scale alignment.
+
+Run this example using:
+
+```bash
+uv run examples/example_1.py
+```
+
+### About Example 2
+
+This example uses the synthetic data setup described in Example 1 above.
+
+In this example, MMD-Reg is applied sequentially using multiple values of `l`
+in a coarse-to-fine strategy. This begins with a larger value of `l` to
+encourage broader alignment and then uses smaller values of `l` to refine the
+solution at finer geometric scales, which can improve registration when the
+initial alignment is poor. It can also be useful to increase `D` across stages,
+because smaller values of `D` can reduce computational cost during coarse
+alignment, while larger values of `D` can provide a more accurate approximation
+of the MMD objective during later refinement.
+
+Run this example using:
+
+```bash
+uv run examples/example_2.py
+```
+
+### About Example 3
+
+This example uses MMD-Reg to register two real point clouds from noisy,
+unstructured outdoor LiDAR scans with 100000 points each. MMD-Reg can be a
+strong choice for this setting when the source and target have high overlap.
+
+This example uses the coarse-to-fine strategy described in Example 2 above.
+
+Use the AWS CLI to download the source and target point clouds for this
+example:
+
+```bash
+aws s3 cp s3://boreas/boreas-2025-07-18-11-53/lidar/1752854644284264.bin examples/real_source.bin --no-sign-request
+aws s3 cp s3://boreas/boreas-2025-07-18-11-53/lidar/1752854644388054.bin examples/real_target.bin --no-sign-request
+```
+
+Then run this example using:
+
+```bash
+uv run examples/example_3.py
+```
+
 ## Download and Process Datasets
 
 Each experiment depends on a specific dataset. You only need to download and
