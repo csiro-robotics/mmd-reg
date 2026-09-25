@@ -72,8 +72,10 @@ def get_point_clouds_real(num_points=100000, voxel_size=0.15):
         The matrices of points for the source and target point clouds.
     """
     np.random.seed(0)
-    X = np.fromfile("real_source.bin", dtype=np.float32).reshape(-1, 6)[:, :3]
-    Y = np.fromfile("real_target.bin", dtype=np.float32).reshape(-1, 6)[:, :3]
+    path_X = "examples/real_source.bin"
+    path_Y = "examples/real_target.bin"
+    X = np.fromfile(path_X, dtype=np.float32).reshape(-1, 6)[:, :3]
+    Y = np.fromfile(path_Y, dtype=np.float32).reshape(-1, 6)[:, :3]
     pcd_X = o3d.geometry.PointCloud()
     pcd_Y = o3d.geometry.PointCloud()
     pcd_X.points = o3d.utility.Vector3dVector(X)
